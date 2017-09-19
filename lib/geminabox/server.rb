@@ -23,8 +23,9 @@ module Geminabox
       :allow_upload
     )
 
-    if Server.rubygems_proxy
-      use Proxy::Hostess
+    if Server.proxy_enabled?
+      use Proxy::Rubygems if Server.rubygems_proxy
+      use Proxy::Gemfury if Server.gemfury_proxy
     else
       use Hostess
     end

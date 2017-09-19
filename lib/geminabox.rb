@@ -26,7 +26,7 @@ module Geminabox
   autoload :Hostess,                geminabox_path('hostess')
   autoload :GemStore,               geminabox_path('gem_store')
   autoload :GemStoreError,          geminabox_path('gem_store_error')
-  autoload :RubygemsDependency,     geminabox_path('rubygems_dependency')
+  autoload :DependencyManager,      geminabox_path('dependency')
   autoload :GemListMerge,           geminabox_path('gem_list_merge')
   autoload :GemVersion,             geminabox_path('gem_version')
   autoload :GemVersionCollection,   geminabox_path('gem_version_collection')
@@ -52,6 +52,7 @@ module Geminabox
       :allow_remote_failure,
       :ruby_gems_url,
       :bundler_ruby_gems_url,
+      :bundler_sources,
       :allow_upload
     )
 
@@ -69,6 +70,10 @@ module Geminabox
     def call(env)
       Server.call env
     end
+
+    def proxy_enabled?
+      rubygems_proxy || gemfury_proxy
+    end
   end
 
   set_defaults(
@@ -80,6 +85,7 @@ module Geminabox
     allow_replace:         false,
     gem_permissions:       0644,
     rubygems_proxy:        (ENV['RUBYGEMS_PROXY'] == 'true'),
+    gemfury_proxy:         (ENV['GEMFURY_PROXY'] == 'true'),
     allow_delete:          true,
     http_adapter:          HttpClientAdapter.new,
     lockfile:              '/tmp/geminabox.lockfile',
@@ -87,6 +93,7 @@ module Geminabox
     allow_remote_failure:  false,
     ruby_gems_url:         'https://rubygems.org/',
     bundler_ruby_gems_url: 'https://bundler.rubygems.org/',
+    bundler_sources:       { ruby_gems: 'https://bundler.rubygems.org/', gemfury: File.join('https://gem.fury.io/', ENV['GEMFURY_TOKEN'], ENV['GEMFURY_USER']) },
     allow_upload:          true
   )
     

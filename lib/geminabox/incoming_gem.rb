@@ -1,7 +1,7 @@
 module Geminabox
 
   class IncomingGem
-    def initialize(gem_data, root_path = Geminabox.data)
+    def initialize(gem_data, root_path = Geminabox.data, source: nil)
       unless gem_data.respond_to? :read
         raise ArgumentError, "Expected an instance of IO"
       end
@@ -22,6 +22,7 @@ module Geminabox
       @sha1 = digest.hexdigest
 
       @root_path = root_path
+      @source = source
     end
 
     def gem_data
@@ -59,7 +60,7 @@ module Geminabox
     end
 
     def dest_filename
-      File.join(@root_path, "gems", name)
+      File.join(@root_path, @source.to_s, "gems", name)
     end
 
     def hexdigest
