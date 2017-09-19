@@ -46,6 +46,7 @@ module Geminabox
       :gem_permissions,
       :allow_delete,
       :rubygems_proxy,
+      :gemfury_proxy,
       :http_adapter,
       :lockfile,
       :retry_interval,
