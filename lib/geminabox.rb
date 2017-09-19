@@ -53,7 +53,8 @@ module Geminabox
       :ruby_gems_url,
       :bundler_ruby_gems_url,
       :bundler_sources,
-      :allow_upload
+      :allow_upload,
+      :store
     )
 
     def set_defaults(defaults)
@@ -94,7 +95,7 @@ module Geminabox
     ruby_gems_url:         'https://rubygems.org/',
     bundler_ruby_gems_url: 'https://bundler.rubygems.org/',
     bundler_sources:       { ruby_gems: 'https://bundler.rubygems.org/', gemfury: File.join('https://gem.fury.io/', ENV['GEMFURY_TOKEN'], ENV['GEMFURY_USER']) },
-    allow_upload:          true
+    allow_upload:          true,
+    store:                 GemStore
   )
-    
 end

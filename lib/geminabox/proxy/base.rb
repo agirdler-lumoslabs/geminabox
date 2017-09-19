@@ -69,7 +69,7 @@ module Geminabox
       end
 
       def pull_from_repo
-        GemStore.create(incoming_gem)
+        Geminabox.store.create(incoming_gem)
       end
 
       def local_file_exists?

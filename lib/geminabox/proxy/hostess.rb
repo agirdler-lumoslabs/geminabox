@@ -61,7 +61,7 @@ module Geminabox
           ruby_gems_url = Geminabox.ruby_gems_url
           path = File.join(ruby_gems_url, *request.path_info)
           content = Geminabox.http_adapter.get_content(path)
-          GemStore.create(IncomingGem.new(StringIO.new(content)))
+          Geminabox.store.create(IncomingGem.new(StringIO.new(content)))
         end
 
       end

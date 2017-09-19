@@ -203,7 +203,7 @@ module Geminabox
 
     def handle_incoming_gem(gem)
       begin
-        GemStore.create(gem, params[:overwrite])
+        Geminabox.store.create(gem, params[:overwrite])
       rescue GemStoreError => error
         error_response error.code, error.reason
       end
