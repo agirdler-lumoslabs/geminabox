@@ -1,0 +1,12 @@
+pipeline:
+  test:
+    image: ruby:${RUBY_VERSION}-onbuild
+    commands:
+      - bundle exec rake test
+
+matrix:
+  RUBY_VERSION:
+    - 2.1
+    - 2.2
+    - 2.3
+    - 2.4
